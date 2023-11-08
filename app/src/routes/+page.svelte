@@ -14,8 +14,8 @@
         </p>
     </main>
     <div id="app-carousel" class="w-full py-2 flex flex-row gap-2 justify-center border-y-4 border-secondary">
-        <Card imgSrc="world.svg" imgAlt="Pixel art depiction of a stylized Norse Viking inspired symbol representing the world">
-            <h3 slot="title">Website lookup</h3>
+        <Card imgSrc="planet.png" imgAlt="Pixel art depiction of a stylized Norse Viking inspired symbol representing the world">
+        <h3 slot="title">Website lookup</h3>
             <p slot="description" class="text-center mt-auto">
                 A simple website checker, that helps with debugging any services or components relating to a website / hosting service
             </p>
@@ -26,9 +26,9 @@
     <p class="text-lg">
         This corner of the internet started off as a side project while I was at Hostinger.
          It's grown into a cozy spot for me to tinker with web tools and share the results.
-         Mostly, it's a collection of handy apps that I built for my colleagues initiall.
+         Mostly, it's a collection of handy apps that I built for my colleagues initially.
          If you find something useful that you wish was here or found a bug, drop me a message at my
-         <a target="_blank" href="https://github.com/kasparasIO" class="link">GitHub</a>, feel free to check out the code.
+         <a target="_blank" href="https://github.com/kasparasIO" class="link">GitHub</a>,also feel free to check out the code.
         </p>
 
     <p class="text-lg">

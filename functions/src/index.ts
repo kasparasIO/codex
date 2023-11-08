@@ -5,7 +5,7 @@ import * as dns from "dns";
 interface DNSRecord {
   recordType: string;
   records: string[] | dns.MxRecord[] | dns.NaptrRecord[] |
-  dns.SoaRecord | dns.SrvRecord[] | string[][] | dns.AnyRecord[];
+  dns.SoaRecord | dns.SrvRecord[] | string[][] | dns.AnyRecord[]; 
 }
 export const dnsCheck = onRequest((request, response) => {
   const domain = request.query.domain as string;

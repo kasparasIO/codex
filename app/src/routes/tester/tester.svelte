@@ -4,13 +4,17 @@
 	import ResultTable from "./ResultTable/ResultTable.svelte";
 	import CopyToast from "$components/CopyToast.svelte";
     let inputVal: string|undefined;
+    let isLoading = false;
     const fetchHostData = async () => { 
+        isLoading = true;
         try {
         const data = await fetch(`/api/host-check?host=${inputVal}`)
         const res = await data.json()
         hostData.set(res)
      } catch (e) { 
         errorStore.set((e as Error).message);
+     } finally {
+        isLoading = false;
      }
     }
     hostData.subscribe((res) => console.log(res))
@@ -33,13 +37,14 @@
 on:keydown={handlePaste}
 bind:value={inputVal}
 class="w-[80%] py-2 px-2 rounded-l-md border-b-[1px] border-primary_light focus:outline"> 
-
 <button on:click={submit}
 class="rounded-r-md w-1/5 py-2 bg-primary transition hover:bg-primary_light flex justify-center">
-
 <img src="search.png" alt="magnifying glass" class="max-w-[24px]">
  </button>
 </div>
+{#if isLoading}
+    <span class="loader absolute top-[100%] left-[45%]"></span>
+{/if}
 <ResultTable/>
 <CopyToast/>
 

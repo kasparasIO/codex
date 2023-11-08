@@ -15,7 +15,7 @@
         errorStore.set((e as Error).message);
      } finally {
         isLoading = false;
-     }
+     }  
     }
     hostData.subscribe((res) => console.log(res))
     const submit = () => {
@@ -36,7 +36,7 @@
 <input type="text" 
 on:keydown={handlePaste}
 bind:value={inputVal}
-class="w-[80%] py-2 px-2 rounded-l-md border-b-[1px] border-primary_light focus:outline"> 
+class="w-[80%] py-2 px-2 rounded-l-md border border-r-0 border-primary_light focus:outline"> 
 <button on:click={submit}
 class="rounded-r-md w-1/5 py-2 bg-primary transition hover:bg-primary_light flex justify-center">
 <img src="search.png" alt="magnifying glass" class="max-w-[24px]">

@@ -18,13 +18,13 @@
     })
 </script>
 
-<div class="toast" bind:this={toast}>
-   {toastText}
+<div class="toast flex flex-row gap-2 items-center" bind:this={toast}>
+   <img src="info.png" alt="icon represeting information" class="w-4 h-4">{toastText}
 </div>
 
 <style lang="postcss">
     .toast {
-        @apply fixed bottom-4 right-4 bg-secondary text-text p-4 rounded-md transition-opacity duration-200 ease-in-out opacity-0;
+        @apply fixed bottom-4 right-4 bg-accent text-background p-4 rounded-md transition-opacity duration-200 ease-in-out opacity-0;
     }
     :global(.toast.visible) {
         @apply opacity-100;

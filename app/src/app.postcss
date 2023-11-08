@@ -22,8 +22,16 @@
         @apply bg-primary hover:bg-primary_light;
         box-shadow: 3px 4px #020210;
     }
+    .btn-secondary {
+        @apply bg-secondary hover:bg-secondary_light;
+        box-shadow: 3px 4px #020210;
+    }
+    .btn-secondary-border {
+        @apply border-2 border-secondary hover:border-secondary_light;
+        box-shadow: 3px 4px #020210;
+    }
     .link{
-        @apply text-accent
+        @apply text-accent transition-all hover:text-accent_light;
     }
     .loader {       
          @apply pointer-events-none inline-block aspect-square w-24 bg-primary_light;

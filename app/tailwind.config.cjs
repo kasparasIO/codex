@@ -10,7 +10,9 @@ const config = {
 				primary: '#0b215c',
 				primary_light: '#103089',
 				secondary: '#081330',
-				accent: '#daab2b'
+				secondary_light: '#163383',
+				accent: '#daab2b',
+				accent_light: '#e8cb7d',
 			}
 		}
 	},

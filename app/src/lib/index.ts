@@ -7,9 +7,13 @@ export interface DnsRecord {
     recordType: string; 
     records: string[] | string | MxRecord[] | undefined
 }
+export interface WhoisResponse {
+    [key: string]: string | string[] | undefined;
+}
 export interface HostData {
     domain_name: string;
     dns_lookup: DnsRecord[];
+    whois: WhoisResponse;
 }
 
 export const copyToClipboard = (node: HTMLElement) => {

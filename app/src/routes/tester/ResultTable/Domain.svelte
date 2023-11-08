@@ -1,29 +1,29 @@
 <script lang="ts">
     import type { HostData, MxRecord } from "$lib";
-    import { copyToClipboard } from "$lib";
-    
-    export let domainData: HostData | undefined;
+    import { copyToClipboard } from "$lib";    
+	import Propagation from "./Propagation.svelte";
+    export let hostData: HostData | undefined;
+
+
     const isMxRecord = (record: any): record is MxRecord => {
         return (record as MxRecord).exchange !== undefined;
     }
+
+    const keys = Object.keys(hostData?.whois ?? {});
 </script>
 
-{#if domainData}
+{#if hostData}
 <div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">DNS ZONE</h2>
-    <span class="text-lg !border-r-0">Host: 
-        <a target="_blank" class="link" href="https://{domainData.domain_name}">{domainData.domain_name}</a>
-    </span>
 </div>
 <div class="w-full flex flex-col border-x border-b border-slate-400">
 <div class="w-full grid grid-cols-[72px_1fr] text-lg">
     <span class="border-r border-slate-400 px-4">Type</span>
     <span class="px-4">Content</span>
 </div>
-        {#each domainData.dns_lookup as dnsRecord}
-            {#if Array.isArray(dnsRecord.records)}
-                {#each dnsRecord.records as record}
-                    {#if dnsRecord.recordType === "MX" && isMxRecord(record)}
+        {#each hostData.dns_lookup as dnsRecord}
+            {#if Array.isArray(dnsRecord.records)} {#each dnsRecord.records as record}
+                {#if dnsRecord.recordType === "MX" && isMxRecord(record)}
                        <div class="grid grid-cols-[72px_2fr_1fr] gap-1 items-center"> 
                         <span>
                         {dnsRecord.recordType}
@@ -35,7 +35,7 @@
                         Priority: {record.priority}
                         </span>
                      </div>
-                    {:else}
+                {:else}
                     <div class="grid grid-cols-[72px_1fr] gap-1 items-center text-center">
                         <span>
                         {dnsRecord.recordType}
@@ -54,6 +54,19 @@
             {/if}
         {/each}
     </div>  
+<div class="w-full px-1 py-2">
+ <h2 class="text-xl border-b border-text">WHOIS</h2>
+</div>
+    {#each keys as key }
+    <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
+        <span class="!text-left px-4">{key}</span>
+        <span class="!border-r-0 !text-left px-4">{hostData.whois[key]}</span>       
+    </div>    
+    {/each}
+<div class="w-full px-1 py-2">
+ <h2 class="text-xl border-b border-text">PROPAGATION</h2>
+</div>
+<Propagation domain={hostData.domain_name}/>
 {/if}
 
 <style lang="postcss">

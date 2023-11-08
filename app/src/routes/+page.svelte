@@ -28,7 +28,7 @@
          It's grown into a cozy spot for me to tinker with web tools and share the results.
          Mostly, it's a collection of handy apps that I built for my colleagues initially.
          If you find something useful that you wish was here or found a bug, drop me a message at my
-         <a target="_blank" href="https://github.com/kasparasIO" class="link">GitHub</a>,also feel free to check out the code.
+         <a target="_blank" href="https://github.com/kasparasIO" class="link">GitHub</a>, also feel free to check out the code.
         </p>
 
     <p class="text-lg">

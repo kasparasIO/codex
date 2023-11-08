@@ -13,9 +13,20 @@ export interface HostData {
 }
 
 export const copyToClipboard = (node: HTMLElement) => {
-    const handleClick = () => {
-      const text = node.textContent || '';
-      navigator.clipboard.writeText(text);
-    };
-    node.addEventListener('click', handleClick);
-  }
+  const handleClick = () => {
+    const text = node.textContent || '';
+    navigator.clipboard.writeText(text);
+    node.dispatchEvent(new CustomEvent('copied', {
+      detail: { text: `Text copied! ${text}` },
+      bubbles: true
+    }));
+  };
+
+  node.addEventListener('click', handleClick);
+
+  return {
+    destroy() {
+      node.removeEventListener('click', handleClick);
+    }
+  };
+};

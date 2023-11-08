@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import { errorStore, hostData } from "./stores";
 	import ResultTable from "./ResultTable/ResultTable.svelte";
+	import CopyToast from "$components/CopyToast.svelte";
     let inputVal: string|undefined;
     const fetchHostData = async () => { 
         try {
@@ -14,9 +15,7 @@
     }
     hostData.subscribe((res) => console.log(res))
     const submit = () => {
-        if (inputVal) fetchHostData();
-        
-        console.log("submited")
+        if (inputVal && inputVal.length > 0) fetchHostData();
     }
     const handlePaste = (e:KeyboardEvent) => {
         if (e.ctrlKey && e.code === "KeyV") submit()
@@ -42,6 +41,9 @@ class="rounded-r-md w-1/5 py-2 bg-primary transition hover:bg-primary_light flex
  </button>
 </div>
 <ResultTable/>
+<CopyToast/>
+
+
 <style lang="postcss">
     input {
         background: none; 

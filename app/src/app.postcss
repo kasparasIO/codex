@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html { 
+        scroll-behavior: smooth;
+    }
+    body { 
+        @apply text-text;
+        font-family: 'VT323', monospace;
+        overflow-x: hidden;
+    }
+    .page {
+       @apply w-full flex flex-col gap-4 justify-center pt-2 px-3;
+    }
+    .btn {
+        @apply text-xl px-6 py-1 rounded-[4px] transition;
+    }
+    .btn-primary {
+        @apply bg-primary hover:bg-primary_light;
+        box-shadow: 3px 4px #020210;
+    }
+    .link{
+        @apply text-accent
+    }
+    .overlay-color { 
+        background: linear-gradient(180deg, #020815 19.44%, #010511 100%);
+    }
+
+}

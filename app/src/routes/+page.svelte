@@ -23,14 +23,18 @@
         </Card>
     </div>
     <div id="app-description" class="border-y-4 border-secondary flex flex-col gap-2 p-2">
-    <p class="text-lg">
-        This corner of the internet started off as a side project while I was at Hostinger.
+        <h2 class="text-5xl">What's this?</h2>
+    <div class="sm:flex flex-row gap-4">
+        <img src="Confused_Nick_Young.webp" class="sm:max-w-[35%] max-w-[50%] mx-auto" alt="Confused Nick Young :D">
+        
+        <p class="sm:text-xl">
+        This corner of the internet started off as a side project while I was working at Hostinger.
          It's grown into a cozy spot for me to tinker with web tools and share the results.
-         Mostly, it's a collection of handy apps that I built for my colleagues initially.
+         Mostly, it's a collection of handy apps that I built for my colleagues.
          If you find something useful that you wish was here or found a bug, drop me a message at my
          <a target="_blank" href="https://github.com/kasparasIO" class="link">GitHub</a>, also feel free to check out the code.
         </p>
-
+    </div>
     <p class="text-lg">
         I built this site with my favorite web technologies - tools that make coding fun and my life a bit easier:
     </p>
@@ -52,20 +56,21 @@
             other Google products, such as analytics, auth and firestore. 
         </li>
         <li>
+        <a href="https://tailwindcss.com/" target="_blank" class="link">TailwindCSS</a> - 
+        Who doesn't love Tailwind? It's my preferred way of writting any sort of CSS. Tailwind is great, it provides a ton of 
+        utility classes, while not limiting you and allowing you to create or use your own design system, making CSS quick and simple.</li>
+        <li>
             <a href="https://vercel.com/" target="_blank" class="link">Vercel</a>
              - it's the go-to for putting front-end projects live, especially when you want to keep things simple.
               It hooks up to your GitHub and takes care of the rest, which provides the most conveniance for personal projects.
         </li>
-        <li><a href="https://tailwindcss.com/" target="_blank" class="link">TailwindCSS</a> - 
-        Who doesn't love Tailwind? It's my preferred way of writting any sort of CSS. Tailwind is great, it provides a ton of 
-        utility classes, while not limiting you and allowing you to create or use your own design system, making CSS quick and simple.</li>
         <li><a href="https://www.realtimecolors.com/" target="_blank" class="link">Realtimecolors.com</a> - 
             while not really a <span class="italic"> web technology </span> per say, it's a website built by 
             <a href="https://www.youtube.com/@juxtopposed" target="_blank" class="link">Juxtopposed</a> 
             that I really liked and I used it to make this sites color scheme, choose the font and get some inspiration on design. 
             If you're building websites, do check it out.
             The creator herself is really awesome and I enjoy her insights into the frontend world. Besides, since I'm bad at desgin this tool 
-            saved me hours of work, thus it deffinately deserves an honourable mention here!</li>
+            saved me hours of work, thus it deffinately deserves an honourable mention</li>
         </ul>
     </div>
 

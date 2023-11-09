@@ -66,7 +66,7 @@
 <div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">PROPAGATION</h2>
 </div>
-<Propagation domain={hostData.domain_name}/>
+<Propagation/>
 {/if}
 
 <style lang="postcss">

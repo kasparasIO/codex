@@ -24,9 +24,13 @@
 
 <style lang="postcss">
     .toast {
+        display: none;
         @apply fixed bottom-4 right-4 bg-accent text-background p-4 rounded-md transition-opacity duration-200 ease-in-out opacity-0;
+       
     }
     :global(.toast.visible) {
+        display: flex;
         @apply opacity-100;
+        
     }
 </style>

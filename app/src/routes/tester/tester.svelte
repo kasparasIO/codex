@@ -11,13 +11,13 @@
         const data = await fetch(`/api/host-check?host=${inputVal}`)
         const res = await data.json()
         hostData.set(res)
+        localStorage.setItem("last_hostData", JSON.stringify(res))
      } catch (e) { 
         errorStore.set((e as Error).message);
      } finally {
         isLoading = false;
      }  
     }
-    hostData.subscribe((res) => console.log(res))
     const submit = () => {
         if (inputVal && inputVal.length > 0) fetchHostData();
     }
@@ -28,6 +28,9 @@
         window.addEventListener("keydown", (e) => {
             if (e.code === "Enter") submit();
         })
+        if(!$hostData && localStorage.getItem("last_hostData")) {
+            hostData.set(JSON.parse(localStorage.getItem("last_hostData") as string))
+        }
     })
 </script>
 
@@ -43,7 +46,7 @@ class="rounded-r-md w-1/5 py-2 bg-primary transition hover:bg-primary_light flex
  </button>
 </div>
 {#if isLoading}
-    <span class="loader absolute top-[100%] left-[45%]"></span>
+    <span class="loader absolute top-[8%] left-[45%] z-50"></span>
 {/if}
 <ResultTable/>
 <CopyToast/>

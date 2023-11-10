@@ -3,7 +3,7 @@ import { onMount } from "svelte";
 import { writable } from "svelte/store";
 import { hostData } from "../stores";
 let domain = $hostData?.domain_name;
-
+let loading = false; 
 interface DnsAnswer {
     name: string;
     type: string;
@@ -48,14 +48,21 @@ hostData.subscribe(() => {
 })
 
 
-    const queryDns = async () => { 
- if (domain && selectedType) {
+const queryDns = async () => { 
+try {
+if (domain && selectedType) {
+    loading = true;
     const data = await fetch(`/api/propagation?host=${domain}&type=${selectedType}`)
     const res = await data.json()
-    console.log(res)
     propagationResults.set(res)
  }
+} catch (e) {
+    console.log((e as Error).message)
+ } finally {
+    loading = false;
+ }
 }
+
 const handleClick = () => {
     queryDns();
 }
@@ -85,13 +92,18 @@ main-container">
     flex flex-col gap-2 items-center px-8 border-x-2 border-b-2 border-secondary_light rounded-md pb-5 transition-all
     scale-y-0 dropdown h-0 relative z-0">
     {#each dnsTypes as type }
-            <button class="w-full mr-4 border-b border-secondary transition hover:border-secondary_light" 
+            <button class="w-full mr-5 border-b border-secondary transition hover:border-secondary_light" 
             on:click={() => {selectedType = type; open = false;}}>
                 {type}
             </button>
     {/each}
     </div>
 </div>
+{#if loading}
+    <span class="absolute loader left-[35%]"></span>
+    <div class="h-10"/>
+{/if}
+
 {#if $propagationResults}
     <div class="w-full flex flex-col gap-2">
         {#each $propagationResults.results as result }
@@ -102,7 +114,8 @@ main-container">
                          <span>{$propagationResults.type === 'MX' ? answer.exchange : answer.data || answer.address}</span>
                     {/each}
                 </div>
-                <span>{result.answer.length ? 'V' : 'X'}</span>
+                <span class="text-xl {result.answer.length ? 'text-green-500' : 'text-red-500'}"
+                >{result.answer.length ? 'V' : 'X'}</span>
             </div>
         {/each}
     </div>

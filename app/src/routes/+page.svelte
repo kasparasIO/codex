@@ -19,7 +19,7 @@
             <p slot="description" class="text-center mt-auto">
                 A simple website checker, that helps with debugging any services or components relating to a website / hosting service
             </p>
-            <a slot="btn" href="/tester" class="btn btn-primary">Check</a>
+            <a slot="btn" href="/host-check" class="btn btn-primary">Check</a>
         </Card>
     </div>
     <div id="app-description" class="border-y-4 border-secondary flex flex-col gap-2 p-2">

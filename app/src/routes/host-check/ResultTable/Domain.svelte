@@ -13,6 +13,20 @@
 </script>
 
 {#if hostData}
+<div class="w-full flex flex-row gap-4">
+    <span class="text-lg !border-r-0">Host: 
+        <a target="_blank" class="link" href="https://{hostData.domain_name}">{hostData.domain_name}</a>
+    </span>
+</div>
+<div class="w-full px-1 py-2">
+ <h2 class="text-xl border-b border-text">WHOIS</h2>
+</div>
+    {#each keys as key }
+    <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
+        <span class="!text-left px-4">{key}</span>
+        <span class="!border-r-0 !text-left px-4">{hostData.whois[key]}</span>       
+    </div>    
+    {/each}
 <div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">DNS ZONE</h2>
 </div>
@@ -55,19 +69,11 @@
         {/each}
     </div>  
 <div class="w-full px-1 py-2">
- <h2 class="text-xl border-b border-text">WHOIS</h2>
-</div>
-    {#each keys as key }
-    <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
-        <span class="!text-left px-4">{key}</span>
-        <span class="!border-r-0 !text-left px-4">{hostData.whois[key]}</span>       
-    </div>    
-    {/each}
-<div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">PROPAGATION</h2>
 </div>
 <Propagation/>
 {/if}
+
 
 <style lang="postcss">
  span{
@@ -75,21 +81,5 @@
  }
  .grid {
     @apply border border-slate-400 border-r-0;
- }
- .copy {
-    @apply relative;
- }
- .copy:hover {
-    cursor: pointer;
- }
- .copy:hover::after {
-    content: "";
-    display: block;
-    position: absolute;
-    right: 12px;
-    top: 4px;
-    width: 16px;
-    height: 16px;
-    background: url('copy.png');
  }
 </style>

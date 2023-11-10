@@ -52,4 +52,20 @@
         border-color: #081330 transparent transparent transparent;
         transform: rotate(0deg);
     }
+    .copy {
+        @apply relative;
+    }
+    .copy:hover {
+        cursor: pointer;
+    }
+    .copy:hover::after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 12px;
+        top: 4px;
+        width: 16px;
+        height: 16px;
+        background: url('/copy.png');
+    }
 }

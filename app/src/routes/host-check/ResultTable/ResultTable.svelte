@@ -14,9 +14,6 @@
         <button class="table-nav">Email</button>
     </div>  
     <div class="w-full rounded-md border border-primary p-2">
-    <span class="text-lg !border-r-0">Host: 
-        <a target="_blank" class="link" href="https://{$hostData.domain_name}">{$hostData.domain_name}</a>
-    </span>
         {#if selected === "Domain"}
         <Domain hostData={$hostData} />
         {/if}

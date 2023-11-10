@@ -2,8 +2,6 @@ import { json } from "@sveltejs/kit";
 import {SECRET_DNS_FIREBASE_URL} from "$env/static/private";
 import { SECRET_WHOIS_FIREBASE_URL } from "$env/static/private";
 
-
-
 export const GET = async ({url, fetch}) => {
     const paramData = url.searchParams.get("host");
     if(!paramData) {

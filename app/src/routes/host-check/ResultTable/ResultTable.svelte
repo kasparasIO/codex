@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { hostData } from "../stores";
 	import Domain from "./Domain.svelte";
+	import Email from "./Email.svelte";
     let selected = "Domain";
 </script>
 {#if $hostData}
@@ -11,11 +12,17 @@
         class="table-nav 
         {selected === "Domain" ? "active" : ""}">
         Domain</button>
-        <button class="table-nav">Email</button>
+        
+        <button on:click={() => {selected = "Email"}}
+         class="table-nav
+         {selected === "Email"? "active": ""}">Email</button>
     </div>  
     <div class="w-full rounded-md border border-primary p-2">
         {#if selected === "Domain"}
-        <Domain hostData={$hostData} />
+            <Domain hostData={$hostData} />
+        {/if}
+        {#if selected === "Email"}
+            <Email/>
         {/if}
     </div>
 </div>    

@@ -2,35 +2,11 @@
 import { onMount } from "svelte";
 import { writable } from "svelte/store";
 import { hostData } from "../stores";
+import type { PropagationResponse } from "$lib";
 let domain = $hostData?.domain_name;
 let loading = false; 
-interface DnsAnswer {
-    name: string;
-    type: string;
-    ttl: number;
-    data: string;
-    exchange: string;
-    address: string;
-}
 
-interface MXAnswer {
-    class: number;
-    exchange: string;
-    priority: number;
-    ttl: number;
-    type: number;
-    data: string;
-    address: string;
-}
 
-interface PropagationResult {
-    server: string;
-    answer: Array<DnsAnswer> | Array<MXAnswer>;
-}
-interface PropagationResponse {
-    type: string
-    results: Array<PropagationResult>;
-}
 type dnsType = "A" | "AAAA" | "CNAME" | "MX" | "NS" | "TXT";
 let selectedType: dnsType | string = "A";
 const dnsTypes = [
@@ -55,6 +31,9 @@ if (domain && selectedType) {
     const data = await fetch(`/api/propagation?host=${domain}&type=${selectedType}`)
     const res = await data.json()
     propagationResults.set(res)
+    if(selectedType === "NS") {
+        localStorage.setItem(`last_${domain}`, JSON.stringify(res));
+    }
  }
 } catch (e) {
     console.log((e as Error).message)
@@ -101,7 +80,6 @@ main-container">
 </div>
 {#if loading}
     <span class="absolute loader left-[35%]"></span>
-    <div class="h-10"/>
 {/if}
 
 {#if $propagationResults}
@@ -119,7 +97,8 @@ main-container">
             </div>
         {/each}
     </div>
-{/if}   
+{/if}
+<div class="{$propagationResults? "h-[20px]": "h-[150px]"}"/>
 <style lang="postcss">
     .main-container:hover .btn {
         @apply border-secondary_light;

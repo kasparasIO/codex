@@ -10,7 +10,6 @@ export const GET = async ({url, fetch}) => {
     try {
         const getPropagationRecords = await fetch(SECRET_PROPAGATION_FIREBASE_URL + `?domain=${domain}&type=${type}`);
         const propagationData = await getPropagationRecords.json();
-        console.log(propagationData);
         return json({
             type: type,
             results: propagationData});

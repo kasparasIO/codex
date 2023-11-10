@@ -1,8 +1,9 @@
 <script lang="ts">
+//@ts-nocheck
     import type { HostData, MxRecord } from "$lib";
     import { copyToClipboard } from "$lib";    
 	import Propagation from "./Propagation.svelte";
-    export let hostData: HostData | undefined;
+    export let hostData: HostData;
 
 
     const isMxRecord = (record: any): record is MxRecord => {
@@ -21,12 +22,16 @@
 <div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">WHOIS</h2>
 </div>
-    {#each keys as key }
-    <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
-        <span class="!text-left px-4">{key}</span>
-        <span class="!border-r-0 !text-left px-4">{hostData.whois[key]}</span>       
-    </div>    
-    {/each}
+ {#each keys as key }  
+    {#if hostData.whois && hostData.whois[key]} 
+        <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
+            <span class="!text-left px-4">{key}</span>
+            <span class="!border-r-0 !text-left px-4">
+                        <!-- @ts-ignore -->
+                {hostData.whois[key]?.length > 0 ? `${hostData.whois[key]}`: "Not found"}</span>       
+        </div>    
+    {/if}
+{/each}
 <div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">DNS ZONE</h2>
 </div>

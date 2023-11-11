@@ -1,77 +1,81 @@
 <script>
+	import Polygon from "$components/polygon.svelte";
 	import Card from "$components/card.svelte";
+
 </script>
 
-<div class="page">
-    <main class="w-full p-2 flex flex-col gap-10">
-        <h1 class="text-5xl w-fit whitespace-pre-wrap">Welcome to Codex </h1>
-        <p class="sm:text-2xl">If there's no need for introductions 
-            <a href="#app-carousel" class="link">pick an app to use below</a>, <br> 
-            if you're new and not sure what's going on feel free to check out more information about this website 
-            <a class="link" href="#app-description">here</a>,<br>
-            if you're an absolute veteran and a "G" and want to check out newest features and/or changelog, you can find it  
-            <a class="link" href="changelog">here</a> <br>
-        </p>
+<div class="w-full h-full py-5 px-4 bg-background flex flex-col gap-4">
+    <main class="w-full min-h-[35rem] bg-no-repeat bg-cover rounded-md flex relative"> 
+        <div class="sm:w-[40%] sm:min-w-[471px] 
+        min-h-[243px] mt-auto mx-auto relative flex justify-center card-container">
+            <div class="absolute bottom-0 w-full z-0">
+                <Polygon />
+            </div>
+            <div class="relative z-10 sm:w-[80%] flex flex-col gap-2 justify-center items-center py-2 container">
+                <h1 class="sm:text-4xl text-xl text-center">Welcome to Codex</h1>
+                <p class="sm:text-lg text-center">Codex is a collection of applications built with 
+                <a href="https://kit.svelte.dev/" target="_blank" class="link">Sveltekit</a>, mainly meant for personal use and
+                portfolio building.
+            </p>
+                <div class="flex flex-row justify-center w-fit items-center">
+                    <a href="#apps" class="btn btn-primary-border border-r-0 rounded-r-none min-w-max">Find Apps</a>
+                    <a href="/changelog" class="btn btn-primary-border border-x-0 min-w-max rounded-none">Changelog</a>
+                    <a href="#about" class="btn btn-primary-border border-l-0 min-w-max rounded-l-none">Learn More</a>
+                </div>
+            </div>
+        </div>
     </main>
-    <div id="app-carousel" class="w-full py-2 flex flex-row gap-2 justify-center border-y-4 border-secondary">
+    <div class="w-full">
+        <img src="new_new_separator.webp" class="w-full max-h-[32px]" alt="">
+    </div>
+    <section id="apps" class="w-full flex flex-col gap-5 py-4 px-2">
+        <h2 class="text-4xl text-center">Apps</h2>
+    <div class="flex flex-row justify-center">
         <Card imgSrc="planet.png" imgAlt="Pixel art depiction of a stylized Norse Viking inspired symbol representing the world">
-        <h3 slot="title">Website lookup</h3>
+        <h3 slot="title">Host lookup</h3>
             <p slot="description" class="text-center mt-auto">
                 A simple website checker, that helps with debugging any services or components relating to a website / hosting service
             </p>
             <a slot="btn" href="/host-check" class="btn btn-primary">Check</a>
         </Card>
     </div>
-    <div id="app-description" class="border-y-4 border-secondary flex flex-col gap-2 p-2">
-        <h2 class="text-5xl">What's this?</h2>
-    <div class="sm:flex flex-row gap-4">
-        <img src="Confused_Nick_Young.webp" class="sm:max-w-[35%] max-w-[50%] mx-auto" alt="Confused Nick Young :D">
-        
-        <p class="sm:text-xl">
-        This corner of the internet started off as a side project while I was working at Hostinger.
-         It's grown into a cozy spot for me to tinker with web tools and share the results.
-         Mostly, it's a collection of handy apps that I built for my colleagues.
-         If you find something useful that you wish was here or found a bug, drop me a message at my
-         <a target="_blank" href="https://github.com/kasparasIO" class="link">GitHub</a>, also feel free to check out the code.
+    </section>
+    <div class="w-full">
+        <img src="new_new_separator.webp" class="w-full max-h-[32px]" alt=""> 
+    </div>
+    <section id="about" class="w-full flex flex-col gap-5 py-4 px-2">
+        <h2 class="text-4xl text-center">What's this?</h2>
+        <p class="text-lg">
+            This corner of the internet, started off as a side project while I was working at Hostinger, 
+            made for programming practice and to have something to publish and be helpfull for my colleagues. Hosting check 
+            was the first and only app that was originally meant for this project, but after using it for personally for a bit, I understood
+            that it required a re-write and a better design, so this is the official 1.0 release of the site. 
         </p>
-    </div>
-    <p class="text-lg">
-        I built this site with my favorite web technologies - tools that make coding fun and my life a bit easier:
-    </p>
-    <ul class="list-disc pl-5">
-        <li>
-            <a target="_blank" class="link" href="https://kit.svelte.dev/">SvelteKit</a> - it's the front-end framework I enjoy the most.
-            It's not just me; Sveltekit has been getting lots of love for being fast and flexible.
-             Plus, it lets you build things without the bloat.
-        </li>
-        <li><a target="_blank" href="https://firebase.google.com/" class="link">Firebase</a> - The classic serverless backend
-            for a lot of svelte applications. Fireship even has a library for this union called 
-            <a target="_blank" href="https://sveltefire.fireship.io/" class="link">Sveltefire</a> (even though I'm not using it here). 
-            While these days firebase is not the most known for a quick and simple developer experience compared to 
-            something that
-            <a target="_blank" href="https://vercel.com/docs/functions/serverless-functions" class="link">Vercel functions</a>  
-            or 
-             <a target="_blank" href="https://www.fl0.com/" class="link">Fl0</a>  
-             provide, it's still my preffered way to approach serverless due to deep integration with 
-            other Google products, such as analytics, auth and firestore. 
-        </li>
-        <li>
-        <a href="https://tailwindcss.com/" target="_blank" class="link">TailwindCSS</a> - 
-        Who doesn't love Tailwind? It's my preferred way of writting any sort of CSS. Tailwind is great, it provides a ton of 
-        utility classes, while not limiting you and allowing you to create or use your own design system, making CSS quick and simple.</li>
-        <li>
-            <a href="https://vercel.com/" target="_blank" class="link">Vercel</a>
-             - it's the go-to for putting front-end projects live, especially when you want to keep things simple.
-              It hooks up to your GitHub and takes care of the rest, which provides the most conveniance for personal projects.
-        </li>
-        <li><a href="https://www.realtimecolors.com/" target="_blank" class="link">Realtimecolors.com</a> - 
-            while not really a <span class="italic"> web technology </span> per say, it's a website built by 
-            <a href="https://www.youtube.com/@juxtopposed" target="_blank" class="link">Juxtopposed</a> 
-            that I really liked and I used it to make this sites color scheme, choose the font and get some inspiration on design. 
-            If you're building websites, do check it out.
-            The creator herself is really awesome and I enjoy her insights into the frontend world. Besides, since I'm bad at desgin this tool 
-            saved me hours of work, thus it deffinately deserves an honourable mention</li>
-        </ul>
-    </div>
-
+        <p class="text-lg">
+            Overall, I really enjoy tinkering around with code and building apps, espcially since there's pretty niche things I like and don't
+            so this website is a collection of apps that I built for myself and my ex-colleagues,
+            I hope will be usefull for you as well if it's you're first time here.
+        </p>
+        <p class="text-lg">
+            If you're interested in the technical details of the site you may find them <a href="/technical-details" class="link">HERE</a>,
+            You can also take a look at the code in my <a href="https://github.com/kasparasIO" class="link">Github</a>
+        </p>
+    </section>
 </div>
+
+<style lang="postcss">
+    main {
+        background-image: url('/generated-background.webp');
+        background-position: center;
+    }
+    @media screen and (max-width: 442px) {
+        .btn {
+            font-size: 12px !important;
+            padding-inline: 15px;
+        }
+        .container {
+            @apply bg-background;
+        }
+        
+    }
+</style>

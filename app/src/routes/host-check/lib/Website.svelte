@@ -124,15 +124,15 @@ hostData.subscribe(() => {
         </div>
     {/if}
     <div class="w-full text-2xl vertical-flex">
-        <h2 class="border-b border-slate-400">
-            Routes in Sitemap:
-        </h2>
-    {#if loadingSitemap} 
+        {#if loadingSitemap} 
         <div class="w-full flex justify-center">
             <span class="loader w-14"/>
         </div>
-    {/if}
+        {/if}
         {#if sitemapRoutes.length > 0 && !loadingSitemap}
+        <h2 class="border-b border-slate-400">
+            Routes in Sitemap:
+        </h2>
         <ul class="vertical-flex list-inside list-disc px-4 text-lg max-h-[20rem] overflow-y-scroll">
             {#each sitemapRoutes as path }
                 <li><a target="_blank" class="transition hover:text-accent_light" 
@@ -142,15 +142,15 @@ hostData.subscribe(() => {
         {/if}
     </div>
     <div class="w-full text-2xl vertical-flex">
-        <h2 class="border-b border-slate-400">
-            Header Breakdown:
-        </h2>
-    {#if loadingHeaders} 
+        {#if loadingHeaders} 
         <div class="w-full flex justify-center">
             <span class="loader w-14"/>
         </div>
-    {/if}
+        {/if}
         {#if headers && !loadingHeaders}
+        <h2 class="border-b border-slate-400">
+            Header Breakdown:
+        </h2>
         <ul class="verical-flex !gap-0 list-inside list-disc px-4">
             {#each headers as headerData} 
                 <li class="text-lg copy" use:copyToClipboard>

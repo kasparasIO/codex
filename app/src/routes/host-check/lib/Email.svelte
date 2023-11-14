@@ -1,15 +1,18 @@
 <script lang="ts">
-import { checkNS, copyToClipboard, isNsPropagated, type MxRecord, type NsPropagationCheck} from "$lib";
-import { hostData } from "../stores";
-let filteredMxRecords: MxRecord[] = [];
+import { copyToClipboard } from "$lib/utils";
+import {checkNS, isNsPropagated} from "./lib";
+import {hostData} from "./lib";
+import type {MXRecordEntry, NsPropagationCheck} from "./types";
+let filteredMxRecords: MXRecordEntry[] = [];
 let filteredSpfRecords: string[] = [];
 let loadingNs = false; 
 let nameserverData: NsPropagationCheck | undefined = undefined;
+
 const filterMx = () => {
     const mxRecords = $hostData?.dns_lookup?.filter((record) => record.recordType === "MX");
     mxRecords?.forEach((record) => {
         if (record.records && Array.isArray(record.records)) {
-            filteredMxRecords = record.records as MxRecord[];
+            filteredMxRecords = record.records as MXRecordEntry[];
         }
     })
 }
@@ -32,7 +35,6 @@ const getNsData = async () => {
         if (nsData) {
             const resObject = isNsPropagated(nsData);
             nameserverData = resObject
-            localStorage.setItem(`last_${$hostData.domain_name}`, JSON.stringify(resObject));
         }
     }
 } catch (e) {
@@ -41,28 +43,10 @@ const getNsData = async () => {
     loadingNs = false; 
     }
 }
-const loadNsData = () => {
-    console.log("loading ns data");
-    if ($hostData && $hostData.domain_name) {
-        const lastNsData = localStorage.getItem(`last_${$hostData.domain_name}`);
-        if (lastNsData) {
-            const parsedData = JSON.parse(lastNsData);
-            if (parsedData && parsedData.domain === $hostData.domain_name) {
-                nameserverData = parsedData;
-            } else {
-                getNsData();
-            }
-        } else {
-            getNsData();
-        }
-    }
-}
-
-
 hostData.subscribe(() => {
     filterMx();
     filterSpf();
-    loadNsData();
+    getNsData();
 })
 </script>
 

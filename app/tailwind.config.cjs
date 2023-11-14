@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config}*/
 const config = {
-	content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: ["./src/**/*.{html,js,svelte,ts}"],
 
-	theme: {
-		extend: {
+  theme: {
+  	extend: {
 			colors: {
 				text: '#f6f8fd',
 				background: '#040916',
@@ -15,9 +15,7 @@ const config = {
 				accent_light: '#e8cb7d',
 			}
 		}
-	},
-
-	plugins: []
+  },
+  plugins: []
 };
-
 module.exports = config;

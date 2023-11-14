@@ -1,46 +1,41 @@
 <script lang="ts">
-//@ts-nocheck
-    import type { HostData, MxRecord } from "$lib";
-    import { copyToClipboard } from "$lib";    
+    //@ts-nocheck
+	import { copyToClipboard } from "$lib/utils";
 	import Propagation from "./Propagation.svelte";
-    export let hostData: HostData;
-
-
-    const isMxRecord = (record: any): record is MxRecord => {
-        return (record as MxRecord).exchange !== undefined;
+	import { hostData } from "./lib";
+    import type { MXRecordEntry } from "./types";
+    
+    const keys = Object.keys($hostData?.whois ?? {});
+        const isMxRecord = (record: any): record is MXRecordEntry => {
+        return (record as MXRecordEntry).exchange !== undefined;
     }
-
-    const keys = Object.keys(hostData?.whois ?? {});
 </script>
 
-{#if hostData}
-<div class="w-full flex flex-row gap-4">
-    <span class="text-lg !border-r-0">Host: 
-        <a target="_blank" class="link" href="https://{hostData.domain_name}">{hostData.domain_name}</a>
-    </span>
-</div>
+{#if $hostData}
+
 <div class="w-full px-1 py-2">
- <h2 class="text-xl border-b border-text">WHOIS</h2>
+    <h2 class="text-xl border-b border-text">WHOIS</h2>
 </div>
- {#each keys as key }  
-    {#if hostData.whois && hostData.whois[key]} 
-        <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
-            <span class="!text-left px-4">{key}</span>
-            <span class="!border-r-0 !text-left px-4">
-                        <!-- @ts-ignore -->
-                {hostData.whois[key]?.length > 0 ? `${hostData.whois[key]}`: "Not found"}</span>       
-        </div>    
-    {/if}
-{/each}
+<div>
+    {#each keys as key }  
+        {#if $hostData.whois && $hostData.whois[key]} 
+            <div class="grid grid-cols-[1fr_2fr] !border-r cursor-pointer copy" use:copyToClipboard> 
+                <span class="!text-left px-4">{key}</span>
+                <span class="!border-r-0 !text-left px-4">
+                    {$hostData.whois[key]?.length > 0 ? `${$hostData.whois[key]}`: "Not found"}</span>       
+            </div>    
+        {/if}
+    {/each}
+</div>
 <div class="w-full px-1 py-2">
  <h2 class="text-xl border-b border-text">DNS ZONE</h2>
 </div>
-<div class="w-full flex flex-col border-x border-b border-slate-400">
-<div class="w-full grid grid-cols-[72px_1fr] text-lg">
-    <span class="border-r border-slate-400 px-4">Type</span>
-    <span class="px-4">Content</span>
-</div>
-        {#each hostData.dns_lookup as dnsRecord}
+<div class="w-full vertical-flex gap-0 border-x border-b border-slate-400">
+    <div class="w-full grid grid-cols-[72px_1fr] text-lg">
+        <span class="border-r border-slate-400 px-4">Type</span>
+        <span class="px-4">Content</span>
+    </div>
+    {#each $hostData.dns_lookup as dnsRecord}
             {#if Array.isArray(dnsRecord.records)} {#each dnsRecord.records as record}
                 {#if dnsRecord.recordType === "MX" && isMxRecord(record)}
                        <div class="grid grid-cols-[72px_2fr_1fr] gap-1 items-center"> 
@@ -72,13 +67,14 @@
             </div>
             {/if}
         {/each}
-    </div>  
-<div class="w-full px-1 py-2">
- <h2 class="text-xl border-b border-text">PROPAGATION</h2>
-</div>
-<Propagation/>
-{/if}
+    </div>
 
+<div class="w-full px-1 py-2 vertical-flex">
+    <h2 class="text-xl border-b border-text">PROPAGATION</h2>
+<Propagation/>
+</div>   
+
+{/if}
 
 <style lang="postcss">
  span{

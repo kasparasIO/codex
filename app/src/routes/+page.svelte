@@ -1,81 +1,68 @@
-<script>
-	import Polygon from "$components/polygon.svelte";
-	import Card from "$components/card.svelte";
+<script lang="ts">
+import Card from "$components/ui/Card.svelte";
+import Slider from "$components/ui/Slider.svelte";
+import HeroUnit from "../lib/components/HeroUnit.svelte";
 
 </script>
 
-<div class="w-full h-full py-5 px-4 bg-background flex flex-col gap-4">
-    <main class="w-full min-h-[35rem] bg-no-repeat bg-cover rounded-md flex relative"> 
-        <div class="sm:w-[40%] sm:min-w-[471px] 
-        min-h-[243px] mt-auto mx-auto relative flex justify-center card-container">
-            <div class="absolute bottom-0 w-full z-0">
-                <Polygon />
-            </div>
-            <div class="relative z-10 sm:w-[80%] flex flex-col gap-2 justify-center items-center py-2 container">
-                <h1 class="sm:text-4xl text-xl text-center">Welcome to Codex</h1>
-                <p class="sm:text-lg text-center">Codex is a collection of applications built with 
-                <a href="https://kit.svelte.dev/" target="_blank" class="link">Sveltekit</a>, mainly meant for personal use and
-                portfolio building.
+<div class="page-container w-full min-h-screen py-5 px-4 bg-background flex flex-col gap-4">
+    <main class="w-full min-h-[35rem] h-full bg-no-repeat bg-cover rounded-md flex relative"> 
+        <HeroUnit>
+            <h1 class="lg:text-3xl text-xl">
+            Discover Codex
+            </h1>
+            <p class="text-center lg:text-lg">
+            A collections of apps, each is a glimpse into my daily toolkit. These tools, crafted for personal use and 
+            range from practical utilities to creative projects. They're shared here for you to explore,
+            perhaps finding that tool that resonates with your own needs.
             </p>
-                <div class="flex flex-row justify-center w-fit items-center">
-                    <a href="#apps" class="btn btn-primary-border border-r-0 rounded-r-none min-w-max">Find Apps</a>
-                    <a href="/changelog" class="btn btn-primary-border border-x-0 min-w-max rounded-none">Changelog</a>
-                    <a href="#about" class="btn btn-primary-border border-l-0 min-w-max rounded-l-none">Learn More</a>
-                </div>
+            <div class="grid grid-cols-2 lg:mb-auto">
+                <a class="btn border-y border-l border-primary rounded-l-sm hover:border-primary_light" href="#apps">Apps</a>
+                <a class="btn border-y border-r border-primary rounded-r-sm hover:border-primary_light" href="#app-description">
+                    Learn More
+                </a>
             </div>
-        </div>
+        </HeroUnit>        
     </main>
     <div class="w-full">
-        <img src="new_new_separator.webp" class="w-full max-h-[32px]" alt="">
+        <img src="separator.webp" alt="" class="w-full">
     </div>
-    <section id="apps" class="w-full flex flex-col gap-5 py-4 px-2">
-        <h2 class="text-4xl text-center">Apps</h2>
-    <div class="flex flex-row justify-center">
-        <Card imgSrc="planet.png" imgAlt="Pixel art depiction of a stylized Norse Viking inspired symbol representing the world">
-        <h3 slot="title">Host lookup</h3>
-            <p slot="description" class="text-center mt-auto">
-                A simple website checker, that helps with debugging any services or components relating to a website / hosting service
-            </p>
-            <a slot="btn" href="/host-check" class="btn btn-primary">Check</a>
-        </Card>
-    </div>
+    <section id="apps" class="w-full py-4 px-2 flex flex-col gap-4 justify-center">
+        <h2 class="text-3xl text-center">
+            Apps
+        </h2>
+        <Slider style="margin-inline: auto;">
+            <Card imgSrc="planet.png" style="margin-inline: auto">
+                <h3 slot="title">Host Check</h3>
+                <p slot="description" class="text-center text-lg my-auto">
+                    A simple utility app to check website hosts
+                </p>
+                <a href="/host-check" slot="btn" class="btn btn-primary-border text-xl py-1 px-6 hover:bg-primary_light">Go Now!</a>
+            </Card>
+        </Slider>
     </section>
     <div class="w-full">
-        <img src="new_new_separator.webp" class="w-full max-h-[32px]" alt=""> 
+        <img src="separator.webp" alt="" class="w-full">
     </div>
-    <section id="about" class="w-full flex flex-col gap-5 py-4 px-2">
-        <h2 class="text-4xl text-center">What's this?</h2>
+    <section class="flex flex-col gap-4 w-full py-6 px-4">
+        <h2 class="text-3xl text-center">
+            What's this?
+        </h2>
         <p class="text-lg">
-            This corner of the internet, started off as a side project while I was working at Hostinger, 
-            made for programming practice and to have something to publish and be helpfull for my colleagues. Hosting check 
-            was the first and only app that was originally meant for this project, but after using it for personally for a bit, I understood
-            that it required a re-write and a better design, so this is the official 1.0 release of the site. 
+            This is a personal Sveltekit Project that is mainly meant for personal use. The main branch is open to the public for conveniance,
+            however keep in mind that this is not the full version as it is behind dev branch by quite a bit of commits, due to overall
+            code cleanliness and in desperate need of refactoring. 
         </p>
         <p class="text-lg">
-            Overall, I really enjoy tinkering around with code and building apps, espcially since there's pretty niche things I like and don't
-            so this website is a collection of apps that I built for myself and my ex-colleagues,
-            I hope will be usefull for you as well if it's you're first time here.
+            Nontheless I hope this will be usefull for you, if you have any suggestions, see any bugs, feel free to reach out.
         </p>
-        <p class="text-lg">
-            If you're interested in the technical details of the site you may find them <a href="/technical-details" class="link">HERE</a>,
-            You can also take a look at the code in my <a href="https://github.com/kasparasIO" class="link">Github</a>
-        </p>
+
     </section>
 </div>
 
 <style lang="postcss">
     main {
-        background-image: url('/generated-background.webp');
+        background-image: url("background.webp");
         background-position: center;
-    }
-    @media screen and (max-width: 442px) {
-        .btn {
-            font-size: 12px !important;
-            padding-inline: 15px;
-        }
-        .container {
-            @apply bg-background;
-        }
-        
-    }
+  }
 </style>

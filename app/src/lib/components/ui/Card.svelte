@@ -1,9 +1,10 @@
 <script lang="ts">
     export let imgSrc = "";
     export let imgAlt = "";
+    export let style = "";
 </script>
 
-<div class="card">
+<div class="card" {style}>
   <div class="w-16 h-16">
     <img src="{imgSrc}" alt="{imgAlt}">
 </div>
@@ -20,9 +21,10 @@
 
 <style lang="postcss">
     .card { 
-        @apply min-w-[180px] max-w-[280px] aspect-[4/5] border border-primary rounded-md
-        transition py-2 px-1 flex flex-col gap-2 items-center;
-        box-shadow: 7px 5px black;
+    @apply aspect-[4/5] border border-primary rounded-md py-2 px-1 flex flex-col gap-2 items-center;
+    box-shadow: 7px 5px black;
+    width: var(--card-width);
+    height: var(--card-height);    
     }
     .divider {
         box-shadow: 1px 1px 0 2px black;

@@ -54,7 +54,9 @@ import HeroUnit from "../lib/components/HeroUnit.svelte";
             code cleanliness and in desperate need of refactoring. 
         </p>
         <p class="text-lg">
-            Nontheless I hope this will be usefull for you, if you have any suggestions, see any bugs, feel free to reach out.
+            Nontheless I hope this will be usefull for you, if you have any suggestions, see any bugs, feel free to 
+            <a href="https://github.com/kasparasIO/codex" target="_blank" class="text-accent hover:text-accent_light">
+                reach out</a>.
         </p>
 
     </section>

@@ -104,7 +104,7 @@
 
 <style lang="postcss">
     main {
-        background-image: url("background.webp");
+        background-image: url("/background.webp");
         background-position: center;
   }
 </style>

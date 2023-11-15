@@ -1,7 +1,7 @@
 <script lang="ts">
 import { domainValidation } from "$lib/utils";
 import {Search} from "lucide-svelte"
-import { onMount } from "svelte";
+import { onDestroy, onMount, tick } from "svelte";
 import { fetchHostData } from "./lib";
 
 let inputValue = "";
@@ -18,11 +18,14 @@ const testInputValidation = () => {
     }
 }
 const submitWrapper = async () => {
-    if (loading) return;
+    if (loading) {
+    return;
+    }
     loading = true;
-
     try {
+    if (domainValidation.test(inputValue)) {
     await fetchHostData(inputValue);
+    }
     } catch (e) {
         console.log((e as Error).message);
     } finally {
@@ -30,21 +33,35 @@ const submitWrapper = async () => {
     }
 }
 const submit = () => {
-    submitWrapper()
+    if (domainValidation.test(inputValue)) {
+        submitWrapper()
+    }
 }
+const handleEnter = (e: KeyboardEvent) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        submit();
+    }
+};
 
 onMount(() => {
-    window.addEventListener("keydown", (e)=> {
-        if (e.key === "Enter") submit()
-    })
-})
+    if (typeof window !== 'undefined') {
+        window.addEventListener("keydown", handleEnter);
+    }
+});
+
+onDestroy(() => {
+    if (typeof window !== 'undefined') {
+        window.removeEventListener("keydown", handleEnter);
+    }
+});
 </script>
 
 
 <div class="flex flex-col gap-4 w-full relative">
     <label for="Domain" class="text-xl">Please provide a Domain name:</label>
     <div class="w-full grid grid-cols-[4fr_1fr]">
-        <input type="text" name="Domain" class="{inputState}"
+        <input type="text" name="Domain" placeholder="domain.tld" class="{inputState}"
          bind:value={inputValue} on:input={testInputValidation} >
         <button disabled={inputState === "error"? true: false} on:click={submit}>
             <Search />

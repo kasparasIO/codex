@@ -2,8 +2,9 @@
 import { copyToClipboard } from "$lib/utils";
 import {checkNS, isNsPropagated} from "./lib";
 import {hostData} from "./lib";
-import type {MXRecordEntry, NsPropagationCheck} from "./types";
-let filteredMxRecords: MXRecordEntry[] = [];
+import type {MXRecord, NsPropagationCheck} from "./types";
+import { onDestroy } from "svelte";
+let filteredMxRecords: MXRecord[] = [];
 let filteredSpfRecords: string[] = [];
 let loadingNs = false; 
 let nameserverData: NsPropagationCheck | undefined = undefined;
@@ -12,7 +13,7 @@ const filterMx = () => {
     const mxRecords = $hostData?.dns_lookup?.filter((record) => record.recordType === "MX");
     mxRecords?.forEach((record) => {
         if (record.records && Array.isArray(record.records)) {
-            filteredMxRecords = record.records as MXRecordEntry[];
+            filteredMxRecords = record.records as MXRecord[];
         }
     })
 }
@@ -43,11 +44,20 @@ const getNsData = async () => {
     loadingNs = false; 
     }
 }
-hostData.subscribe(() => {
-    filterMx();
-    filterSpf();
-    getNsData();
-})
+ let unsubscribe: () => void;
+    const subscribeToHostData = () => {
+        unsubscribe = hostData.subscribe(() => {
+            filterMx();
+            filterSpf();
+            getNsData();
+        });
+    };
+
+subscribeToHostData();
+
+onDestroy(()=>{
+    if (unsubscribe) unsubscribe()
+});
 </script>
 
 <div class="w-full grid grid-cols-3 gap-2 p-2">
@@ -94,7 +104,7 @@ hostData.subscribe(() => {
                 Nameservers are propagated and the DNS zone is active, there is nothing to worry about 👍
             </span>
         {/if}
-        {#if nameserverData && nameserverData?.isPropagated === false && !loadingNs}
+        {#if !nameserverData?.isPropagated && !loadingNs}
             <span class="text-lg my-auto">
                 ❗ Not all nameservers are propagated, the DNS zone might not be active yet, consider going to the
                 Domains tab to check the status of propagation.

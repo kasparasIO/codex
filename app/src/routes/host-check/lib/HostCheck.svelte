@@ -42,7 +42,7 @@
       </a>
     </span>
         {#if selected === "Domain"}
-            <Domain/>
+        <Domain/>
         {:else if selected === "Email"}
         <Email/>
         {:else if selected === "Website"}

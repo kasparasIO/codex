@@ -1,23 +1,15 @@
-interface DnsRecord {
-    recordType: string;
-    records?: string[];
-}
-export interface MXRecordEntry {
+export interface MXRecord {
     exchange: string;
     priority: number;
 }
-export interface MXRecord {
+interface DnsRecord {
     recordType: string;
-    records?: MXRecordEntry[];
+    records?: string[]| MXRecord[];
 }
 interface WhoisResponse {
-    [key: string]: string | string[] | undefined;
+    [key: string]: string | string[];
 
 }
-export interface HostLoadData {
-    paramData: HostData;
-}
-
 interface DnsAnswer {
     name: string;
     type: string;
@@ -48,7 +40,9 @@ export interface Ping {
 }
 export interface HostData { 
     domain_name: string; 
-    dns_lookup: DnsRecord[]| MXRecord[];
-    whois?: WhoisResponse;
-    ping?: Ping;
+    dns_lookup: DnsRecord[];
+    whois: WhoisResponse;
+}
+export interface HostLoadData {
+    paramData: HostData;
 }

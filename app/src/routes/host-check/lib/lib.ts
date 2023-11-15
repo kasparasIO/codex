@@ -44,6 +44,12 @@ export const isAllTheSame = (arr: filteredNsResponse[]) => {
     );
 }
 export const isNsPropagated = (nsRecords: filteredNsResponse[]) => {
+  if (nsRecords[0].answers[0].length === 0) {
+    return {
+      isPropagated: false,
+      records: [],
+    }
+  }
   const allTheSame = isAllTheSame(nsRecords);
 
   if (allTheSame) {

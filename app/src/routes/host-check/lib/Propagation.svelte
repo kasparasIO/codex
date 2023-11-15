@@ -1,9 +1,9 @@
 <script lang="ts">
-import { onMount } from "svelte";
+import { onDestroy, onMount } from "svelte";
 import type { PropagationResponse } from "./types";
 import { hostData } from "./lib";
 import { copyToClipboard } from "$lib/utils";
-import { ArrowDown } from "lucide-svelte";
+import { ArrowDown, Keyboard } from "lucide-svelte";
 
 type dnsType = "A" | "AAAA" | "CNAME" | "MX" | "NS" | "TXT";
 let selectedType: dnsType | string = "A";
@@ -18,9 +18,6 @@ const dnsTypes = [
 let propagationResults: PropagationResponse | undefined;
 let open = false;
 let loading = false; 
-hostData.subscribe(() => {
-    propagationResults = undefined;
-})
 const queryDns = async () => { 
 try {
 if ($hostData?.domain_name && selectedType && !loading) {
@@ -42,14 +39,34 @@ if ($hostData?.domain_name && selectedType && !loading) {
 const handleClick = () => {
     queryDns();
 }
-onMount(() => {
-    document.addEventListener("keydown", (e) => {
-        if (e.code === "Escape") open = false;
+const handleEscape = (e:KeyboardEvent) => {
+    if (e.code === "Escape") open = false;
+}
+
+const handleClickOutside = (e:MouseEvent) => {
+    if (e.target!== document.querySelector(".sel-type")) {
+        open = false
+    }
+}
+let unsubscribe: () => void;
+const subscribeToHostData = () => {
+    hostData.subscribe(() => {
+        propagationResults = undefined;
     })
-    document.addEventListener("click", (e) => {
-    if (e.target !== document.querySelector(".sel-type")) {
-        open = false;
-    }})
+}
+subscribeToHostData()
+onMount(() => {
+    document.addEventListener("keydown", handleEscape)
+    document.addEventListener("click", handleClickOutside)
+})
+onDestroy(()=> {
+    if(document){
+        document.removeEventListener("keydown", handleEscape);
+        document.removeEventListener("click", handleClickOutside)
+    }
+    if(unsubscribe) {
+        unsubscribe()
+    }
 })
 </script>
 

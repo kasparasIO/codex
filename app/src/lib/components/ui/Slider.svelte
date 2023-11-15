@@ -2,35 +2,35 @@
     export let style = "";
 </script>
 
-<div class="flex flex-nowrap gap-10 overflow-x-scroll py-4 slider" {style}>
-  <slot/>
+<div class="flex flex-nowrap gap-10 overflow-x-scroll py-4 items-center max-w-[80%]" {style}>
+  <div class="max-w-none flex flex-row gap-10 flex-nowrap">
+    <slot/>
+  </div>
 </div>
 
 <style lang="postcss">
-  :global(.slider) {
-    @apply flex flex-nowrap gap-4 overflow-x-scroll;
-    width: var(--slider-visible-width);
-  }
-  :global(.slider > div) {
-    width: 25%;
-    height: 4rem; 
-    border-radius: 0.5rem;
-    flex: 0 0 auto;
-    margin-right: 1rem;
-  }
-  :global(.slider > div:last-child) {
-  margin-right: 0;
-  }
-  .slider::-webkit-scrollbar {
-  display: none;
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0b215c black; 
 }
-  .slider {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+
+
+*::-webkit-scrollbar {
+  width: 12px; 
 }
-  @media screen and (max-width: 1120px){
-  .slider {
-    max-width: 100%
-  }
+
+*::-webkit-scrollbar-track {
+  background: black; 
+  border-radius: 6px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #0b215c; 
+  border-radius: 20px; 
+  @apply transition;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: #103089; 
 }
 </style>

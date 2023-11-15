@@ -120,9 +120,9 @@ onDestroy(() => {
         {#if loadingPing}
             <span class="loader w-14"></span>
         {/if}
-        {#if ping}
+        {#if ping && !loadingPing}
             <span class="text-emerald-500 text-lg">Host is active</span>
-        {:else}
+        {:else if !ping && !loadingPing}
             <span class="text-red-500 text-lg">Host is inactive</span>
         {/if}
     </div>

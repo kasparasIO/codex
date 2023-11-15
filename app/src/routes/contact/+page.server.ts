@@ -46,7 +46,7 @@ export const actions = {
             message: formData.get('message')
         }
         formSchema.parse(formObj);
-        sendMail((formObj as FormObject))
+        await sendMail((formObj as FormObject))
         return {
             success: true
         }   

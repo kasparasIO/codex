@@ -149,7 +149,7 @@ onDestroy(() => {
                     href="https://{$hostData?.domain_name}{path}">{$hostData?.domain_name}{path}</a></li>
             {/each}
         </ul>
-        {:else}
+        {:else if !sitemapRoutes && !loadingSitemap}
         <h3 class="text-red-500 text-xl">Sitemap Not found</h3>
         {/if}
     </div>
@@ -186,7 +186,7 @@ onDestroy(() => {
     .red {
         @apply text-red-500;
     }
-    * {
+* {
   scrollbar-width: thin;
   scrollbar-color: #0b215c #2d3748; 
 }

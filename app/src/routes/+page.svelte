@@ -41,7 +41,7 @@
                 <a class="btn border-y border-l border-primary rounded-l-sm hover:border-primary_light" 
                 href="#apps">Apps</a>
                 <a class="btn border-y border-r border-primary rounded-r-sm hover:border-primary_light"
-                 href="#app-description">
+                 href="#apps">
                     Learn More
                 </a>
             </div>
